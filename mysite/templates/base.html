@@ -10,6 +10,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+    
     {% include "header.html" %} 
 
     <div class="container">
@@ -19,7 +20,7 @@
     {% include "footer.html" %}
 
     {% block javascript %}{% endblock %} 
-
+    
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/popper-umd-1.14.7.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
