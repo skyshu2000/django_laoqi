@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Reset redirect url after login successfully.
+LOGIN_REDIRECT_URL = '/blog/'

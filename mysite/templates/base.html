@@ -6,7 +6,8 @@
     <!--meta name="viewport" content="width=device-width, initial-scale=1"--> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">    
 </head>
 
 <body class="d-flex flex-column h-100">
