@@ -18,9 +18,12 @@
             </ul>
             <!--ml-auto means margin-left:auto, right to left-->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{% url 'account:user_login' %}">LOGIN</a>
-                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="#">{{ user.username }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">LOGOUT</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'account:built_in_login' %}">LOGIN</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
