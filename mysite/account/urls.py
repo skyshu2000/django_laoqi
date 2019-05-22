@@ -12,5 +12,8 @@ urlpatterns = [
     path('built-in-login/', LoginView.as_view(template_name='built_in_login.html'), name='built_in_login'),
 
     # 使用内置的LogoutView类处理登出的路由
-    path('built-in-logout/', LogoutView.as_view(next_page='/blog/'), name='built_in_logout'),    
+    path('built-in-logout/', LogoutView.as_view(next_page='/blog/'), name='built_in_logout'),  
+
+    # 用户注册处理路由
+    path('registration/', views.UserCreateView.as_view(), name='registration'),  
 ]
