@@ -16,4 +16,7 @@ urlpatterns = [
 
     # 用户注册处理路由
     path('registration/', views.UserCreateView.as_view(), name='registration'),  
+
+    # 用户注册处理路由，在注册中添加email，并创建user profile的关联use_id 
+    path('registration2/', views.UserRegistrationView.as_view(), name="registration2"),
 ]
