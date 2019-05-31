@@ -19,10 +19,19 @@
             <!--ml-auto means margin-left:auto, right to left-->
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="#">{{ user.username }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account:built_in_logout' %}">LOGOUT</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'account:password_change' %}">修改密码</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'account:built_in_logout' %}">退出登录</a>
+                    </div>                  
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'account:built_in_logout' %}">退出</a></li>
                 {% else %}
-                <li class="nav-item"><a href="{% url 'account:built_in_login' %}">LOGIN</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'account:built_in_login' %}">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'account:registration2' %}">注册</a></li>
                 {% endif %}
             </ul>
         </div>

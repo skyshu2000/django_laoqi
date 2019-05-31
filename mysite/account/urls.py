@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = "account"
@@ -9,14 +9,20 @@ urlpatterns = [
     path('login/', views.user_login, name="user_login"),
 
     # 使用内置的LoginView类处理登录的路由
-    path('built-in-login/', LoginView.as_view(template_name='built_in_login.html'), name='built_in_login'),
+    path('built-in-login/', auth_views.LoginView.as_view(template_name='built_in_login.html'), name='built_in_login'),
 
     # 使用内置的LogoutView类处理登出的路由
-    path('built-in-logout/', LogoutView.as_view(next_page='/blog/'), name='built_in_logout'),  
+    path('built-in-logout/', auth_views.LogoutView.as_view(next_page='/blog/'), name='built_in_logout'),  
 
     # 用户注册处理路由
     path('registration/', views.UserCreateView.as_view(), name='registration'),  
 
     # 用户注册处理路由，在注册中添加email，并创建user profile的关联use_id 
     path('registration2/', views.UserRegistrationView.as_view(), name="registration2"),
+
+    # 用户修改密码路由
+    path('password-change/', auth_views.PasswordChangeView.as_view(template_name='password_change_form.html', success_url="/account/password-change-done/"), name="password_change"),
+
+    # 用户修改密码完成路由
+    path('password-change-done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name="password_change_done"),
 ]

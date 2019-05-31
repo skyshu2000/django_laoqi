@@ -129,3 +129,4 @@ STATICFILES_DIRS = (
 
 # Reset redirect url after login successfully.
 LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_URL = '/account/built-in-login/'
