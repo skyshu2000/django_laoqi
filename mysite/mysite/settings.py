@@ -130,3 +130,7 @@ STATICFILES_DIRS = (
 # Reset redirect url after login successfully.
 LOGIN_REDIRECT_URL = '/blog/'
 LOGIN_URL = '/account/built-in-login/'
+
+# Set EMAIL_BACKEND variable to display email in console
+# This is ONLY for dev stage
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

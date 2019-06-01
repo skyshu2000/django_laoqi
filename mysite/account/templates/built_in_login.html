@@ -29,7 +29,13 @@
             </label>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>   
+        
+        <div class="text-center py-2">
+            <small>
+              <a href="{% url 'account:password_reset' %}" class="text-muted">Forgot your password?</a>
+            </small>
+        </div>
     </form>
 </div>
 {% endblock %}
