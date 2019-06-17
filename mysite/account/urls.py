@@ -65,4 +65,7 @@ urlpatterns = [
         ),
         name='password_reset_complete'
     ),
+
+    # 显示用户信息
+    path('my-info/', views.myself, name="my_info"),
 ]

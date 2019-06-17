@@ -2,9 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import CreateView
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
+from .models import UserProfile, UserInfo
 from .forms import LoginForm, UserCreateForm, UserProfileForm
+from .forms import UserInfoForm, UserForm
+
 
 def user_login(request):
     """
@@ -59,5 +64,27 @@ class UserRegistrationView(CreateView):
 
         new_user_profile = UserProfileForm().save(commit=False)
         new_user_profile.user = new_user
-        new_user_profile.save()        
+        new_user_profile.save()    
+
+        UserInfo.objects.create(user=new_user)
+
         return HttpResponseRedirect(reverse('account:built_in_login'))
+
+@login_required(login_url='/account/built-in-login/')
+def myself(request):
+    user = User.objects.get(username=request.user.username)
+
+    if hasattr(user, 'userprofile'):
+        userprofile = UserProfile.objects.get(user=user)
+    else:
+        userprofile = UserProfile.objects.create(user=user)
+    
+    if hasattr(user, 'userinfo'):
+        userinfo = UserInfo.objects.get(user=user)
+    else:
+        userinfo = UserInfo.objects.create(user=user)
+    
+    return render(request, 'myself.html', 
+                  {"user":user, "userprofile":userprofile, 
+                  "userinfo":userinfo}
+                 )
