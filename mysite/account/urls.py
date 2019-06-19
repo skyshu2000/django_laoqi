@@ -68,4 +68,7 @@ urlpatterns = [
 
     # 显示用户信息
     path('my-info/', views.myself, name="my_info"),
+
+    # 修改用户信息
+    path('edit-my-info/', views.myself_edit, name="edit_my_info"),
 ]
