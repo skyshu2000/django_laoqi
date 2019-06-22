@@ -71,4 +71,7 @@ urlpatterns = [
 
     # 修改用户信息
     path('edit-my-info/', views.myself_edit, name="edit_my_info"),
+
+    # 显示/保存 头像
+    path('my-image/', views.my_image, name="my_image"),
 ]

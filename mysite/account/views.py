@@ -152,3 +152,15 @@ def myself_edit(request):
                        "userinfo_form":userinfo_form
                       }
                      )
+
+from .models import UserInfo
+@login_required(login_url='/account/built-in-login/')
+def my_image(request):
+    if request.method == 'POST':
+        img = request.POST['img']
+        userinfo = UserInfo.objects.get(user=request.user.id)
+        userinfo.photo = img
+        userinfo.save()
+        return HttpResponse("1")
+    else:
+        return render(request, 'imagecrop.html')
