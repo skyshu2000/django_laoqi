@@ -1,0 +1,87 @@
+{% extends "article/base.html" %}
+{% load staticfiles %}
+
+{% block title %}article column{% endblock %} 
+
+{% block content %}
+<div>
+    <p class="text-right">        
+        <button id="add_column_modal" onclick="add_column_modal()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">add column modal</button>
+    </p> 
+    <table class="table table-hover">
+        <tr> 
+            <td>序号</td>
+            <td>栏目名称</td>
+            <td>操作</td> 
+        </tr>
+        {% for column in columns %} 
+        <tr>
+            <td>{{ forloop.counter }}</td> 
+            <td>{{ column.column }}</td> 
+            <td>
+                <a name="edit" class="text-decoration-none mr-2" data-toggle="tooltip" data-placement="top" title="编辑此栏目" href="javascript:" onclick="edit_column(this, {{ column.id }})"> 
+                    <i class="far fa-edit"></i>    
+                </a>
+                <a name="delete" class="text-decoration-none ml-2" data-toggle="tooltip" data-placement="top" title="删除此栏目" href="javascript:" onclick="del_column(this, {{ column.id }})">
+                    <i class="far fa-trash-alt"></i> 
+                </a>   
+                
+            </td>
+        </tr>
+        {% empty %} 
+        <p>还没有设置栏目。</p> 
+        {% endfor %}
+    </table> 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <div class="text-center" style="margin-top:20px">
+                    <p> 请输入新的栏目名称</p>
+                    <p>{{ column_form.column }}</p>
+                    <p id="error_tip" name="error_tip"  style="color:red;visibility:hidden;">此栏目已有，请更换名称</p>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" onclick="add_column(this)">确定</button>
+            
+        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script> 
+<script type="text/javascript" src="{% static 'js/layer/layer.js' %}"></script> 
+<script type="text/javascript">    
+    function add_column(obj){
+        column_name = $('#id_column').val();
+            $.ajax({
+                url: '{% url "article:article_column" %}',
+                type: 'POST',
+                data: { "column": column_name },
+                success: function (e) {
+                    if (e == "1") {
+                        parent.location.reload();
+                        //layer.msg("good");
+                    } else {
+                        //layer.msg("此栏目已有，请更换名称")
+                        document.getElementById("error_tip").style.visibility = "visible";
+                        
+                    }
+                },
+            });
+    }
+
+</script>
+
+{% endblock %}
