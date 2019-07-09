@@ -6,8 +6,12 @@
     <!--meta name="viewport" content="width=device-width, initial-scale=1"--> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %}</title>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/popper-umd-1.14.7.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     {% block css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">    
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -22,9 +26,7 @@
 
     {% block javascript %}{% endblock %} 
     
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'js/popper-umd-1.14.7.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
 
 </body>
 </html>

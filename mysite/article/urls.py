@@ -6,4 +6,10 @@ app_name = "article"
 urlpatterns = [
     # 创建栏目
     path('article-column/', views.article_column, name="article_column"),
+
+    # 修改栏目名称
+    path('rename-column/', views.rename_article_column, name="rename_article_column"),
+
+    # 删除栏目
+    path('delete-column/', views.delete_article_column, name="delete_article_column"),
 ]
