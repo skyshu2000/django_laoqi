@@ -12,4 +12,7 @@ urlpatterns = [
 
     # 删除栏目
     path('delete-column/', views.delete_article_column, name="delete_article_column"),
+
+    # 创建文章
+    path('article-post/', views.article_post, name="article_post"),
 ]
