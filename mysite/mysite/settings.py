@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'account',
     'article',
+    'mdeditor',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,8 @@ LOGIN_URL = '/account/built-in-login/'
 # Set EMAIL_BACKEND variable to display email in console
 # This is ONLY for dev stage
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# settings for using django-mdeditor App
+# refer to https://github.com/pylixm/django-mdeditor#quick-start
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'

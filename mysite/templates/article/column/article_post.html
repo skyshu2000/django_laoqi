@@ -7,12 +7,14 @@
 <div style="margin-left:10px">
     <form class="form-horizontal" action="." method="post">{% csrf_token %} 
         <div class="row" style="margin-top: 10px;">
-            <div class="col-md-2 text-right"><span>标题:</span></div>
-            <div class="col-md-10 text-left">{{article_post_form.title}}</div> 
+            <div class="col-md-1 text-right"><span>标题:</span></div>
+            <div class="col-md-11 text-left">{{article_post_form.title}}</div> 
         </div>
+
+
         <div class="row" style="margin-top: 10px;">
-            <div class="col-md-2 text-right"><span>栏目:</span></div> 
-            <div class="col-md-10 text-left">
+            <div class="col-md-1 text-right"><span>栏目:</span></div> 
+            <div class="col-md-11 text-left">
                 <select id="which_column">
                     {% for column in article_columns %}
                     <option value="{{column.id}}">{{column.column}}</option> 
@@ -22,8 +24,15 @@
         </div>
         
         <div class="row" style="margin-top: 10px;">
-            <div class="col-md-2 text-right"><span>内容:</span></div>
-            <div class="col-md-10 text-left">{{article_post_form.body}}</div>
+            <div class="col-md-1 text-right"><span>内容:</span></div>
+            <div class="col-md-11 text-left"></div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;"></div>
+            <div class="col-md-12 text-left"></div>
+                {{ article_post_form.media }}
+                {{ article_post_form.body }}
+            </div>
             <!--div id="editormd" class="col-md-10 text-left">
                 <textarea style="display:none;" id="id_body"></textarea>
             </div--> 

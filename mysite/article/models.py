@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 from slugify import slugify
+from mdeditor.fields import MDTextField
 
 class ArticleColumn(models.Model):
     user = models.ForeignKey(
@@ -22,7 +23,8 @@ class ArticlePost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=500)
     column = models.ForeignKey(ArticleColumn, on_delete=models.CASCADE, related_name="article_column")
-    body = models.TextField()
+    #body = models.TextField()
+    body = MDTextField()
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
 
