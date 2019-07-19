@@ -54,7 +54,8 @@ function publish_article(){
         data: {"title":title, "body":body, "column_id":column_id}, 
         success: function(e){
             if(e=="1"){ 
-                alert("successful");                
+                alert("successful"); 
+                location.href = "{% url 'article:article_list' %}";
             }else if(e=="2"){ 
                 alert("sorry.") ;
             }else{ 

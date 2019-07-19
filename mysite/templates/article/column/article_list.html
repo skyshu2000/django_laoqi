@@ -1,0 +1,30 @@
+{% extends "article/base.html" %}
+{% load staticfiles %}
+
+{% block title %}article posts{% endblock %} 
+
+{% block content %}
+<div class="mt-2">    
+    <table class="table table-hover">
+        <tr> 
+            <td>序号</td>
+            <td>标题</td>
+            <td>栏目</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        {% for article in articles %} 
+        <tr>
+            <td>{{ forloop.counter }}</td> 
+            <td>{{ article.title }}</td> 
+            <td>{{ article.column }}</td>
+            <td>{{ article.created }}</td>
+            <td>---</td>        
+        </tr>
+        {% empty %} 
+        <p>还没有文章。</p> 
+        {% endfor %}
+    </table> 
+</div>
+
+{% endblock %}

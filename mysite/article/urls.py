@@ -15,4 +15,7 @@ urlpatterns = [
 
     # 创建文章
     path('article-post/', views.article_post, name="article_post"),
+
+    # 文章列表
+    path('article-list/', views.ArticlePostListView.as_view(), name="article_list"),
 ]

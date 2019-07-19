@@ -78,3 +78,11 @@ def article_post(request):
         return render(request, "article/column/article_post.html", 
                       {"article_post_form":article_post_form, 
                       "article_columns":article_columns})
+
+
+from django.views.generic import ListView
+
+class ArticlePostListView(ListView):
+    model = ArticlePost
+    context_object_name = "articles"
+    template_name = "article/column/article_list.html"
