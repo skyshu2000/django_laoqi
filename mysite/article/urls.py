@@ -18,4 +18,7 @@ urlpatterns = [
 
     # 文章列表
     path('article-list/', views.ArticlePostListView.as_view(), name="article_list"),
+
+    # 文章详情
+    path('article-detail/<int:pk>/<slug>/', views.ArticlePostDetailView.as_view(), name="article_detail"),
 ]

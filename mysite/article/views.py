@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
@@ -86,3 +86,10 @@ class ArticlePostListView(ListView):
     model = ArticlePost
     context_object_name = "articles"
     template_name = "article/column/article_list.html"
+
+from django.views.generic.detail import DetailView
+
+class ArticlePostDetailView(DetailView):
+    model = ArticlePost
+    context_object_name = "article"
+    template_name = "article/column/article_detail.html"
