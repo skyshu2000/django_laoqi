@@ -21,4 +21,7 @@ urlpatterns = [
 
     # 文章详情
     path('article-detail/<int:pk>/<slug>/', views.ArticlePostDetailView.as_view(), name="article_detail"),
+
+    # 删除文章
+    path('del-article/', views.del_article, name="del_article"),
 ]

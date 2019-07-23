@@ -19,12 +19,110 @@
             <td><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></td> 
             <td>{{ article.column }}</td>
             <td>{{ article.created }}</td>
-            <td>---</td>        
+            <td>
+                <a name="edit" class="text-decoration-none mr-2" 
+                data-toggle="tooltip" data-placement="top" 
+                title="编辑此文章" href="javascript:"
+                onclick="handle_article_modal('update', '{{ article.id }}', '{{ article.title }}')"> 
+                    <i class="far fa-edit"></i>    
+                </a>
+                <a name="delete" class="text-decoration-none ml-2" 
+                data-toggle="tooltip" data-placement="top" 
+                title="删除此文章" href="javascript:" 
+                onclick="handle_article_modal('delete', '{{ article.id }}', '{{ article.title }}')">
+                    <i class="far fa-trash-alt"></i> 
+                </a>
+            </td>        
         </tr>
         {% empty %} 
         <p>还没有文章。</p> 
         {% endfor %}
     </table> 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <div class="text-center" style="margin-top:20px">
+                    <p id="modal-body-title">modal-body-title</p>
+                    <p id="modal-body-content">
+                        <input type="hidden" id="handle_type" value="">
+                        <input type="hidden" id="article_id" value="article_id">
+                        <input type="text" id="article_title" value="article_title">                        
+                    </p>
+                    <p id="error_tip" name="error_tip"  style="color:red;visibility:hidden;">此栏目已有，请更换名称</p>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button id="modal-submit" type="button" class="btn btn-primary" 
+            onclick="handle_article_CUD()">确定</button>
+            
+        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">    
+    function handle_article_modal(handle_type, article_id, article_title){
+        if (handle_type == 'create'){
+            $("#modal-body-title").html("请输入新的文章名称：");            
+        } else if (handle_type == 'update'){
+            $("#modal-body-title").html("请输入新的文章名称：");            
+        } else if (handle_type == 'delete'){
+            $("#modal-body-title").html("请确认删除以下文章：");            
+        } 
+        
+        $("#handle_type").val(handle_type);
+        $("#article_id").val(article_id);
+        $("#article_title").val(article_title);
+        
+        $('#exampleModal').modal('show');
+    }
+
+    function handle_article_CUD(){
+        var handle_type = $("#handle_type").val().trim();;
+        var article_id = $("#article_id").val().trim();;
+        var article_title = $("#article_title").val().trim();
+
+        if (handle_type == 'create'){
+            add_column(article_id, article_title);
+        }else if (handle_type == 'update'){
+            edit_column(article_id, article_title);
+        }else if (handle_type == 'delete'){
+            delete_article(article_id);
+        }
+    }
+
+
+
+    function delete_article(article_id){        
+        //alert("article_id<" + article_id + ">");
+        $.ajax({
+            url: "{% url 'article:del_article' %}",
+            type: 'POST',
+            data: {"article_id": article_id},
+            success: function (e) {
+                if (e == "1") {
+                    parent.location.reload();
+                    //layer.msg("good");
+                } else {
+                    alert("未知错误，无法删除此文章！");
+                    //document.getElementById("error_tip").style.visibility = "visible";                    
+                }
+            },
+        });
+        
+    }
+
+</script>
 
 {% endblock %}

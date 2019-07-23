@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from .models import ArticleColumn, ArticlePost
 from .forms import ArticleColumnForm, ArticlePostForm
 
@@ -81,15 +82,30 @@ def article_post(request):
 
 
 from django.views.generic import ListView
-
 class ArticlePostListView(ListView):
     model = ArticlePost
     context_object_name = "articles"
     template_name = "article/column/article_list.html"
 
-from django.views.generic.detail import DetailView
 
+from django.views.generic.detail import DetailView
 class ArticlePostDetailView(DetailView):
     model = ArticlePost
     context_object_name = "article"
     template_name = "article/column/article_detail.html"
+
+
+@login_required(login_url='/account/built-in-login/')
+@require_POST
+@csrf_exempt
+def del_article(request):
+    article_id = request.POST['article_id']
+    try:
+        #article = ArticlePost.get_object_or_404(id=article_id)
+        article = ArticlePost.objects.get(id=article_id)
+        article.delete()
+        return HttpResponse("1")
+    except:
+        return HttpResponse("2")
+
+
