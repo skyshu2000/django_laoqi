@@ -22,8 +22,7 @@
             <td>
                 <a name="edit" class="text-decoration-none mr-2" 
                 data-toggle="tooltip" data-placement="top" 
-                title="编辑此文章" href="javascript:"
-                onclick="handle_article_modal('update', '{{ article.id }}', '{{ article.title }}')"> 
+                title="编辑此文章" href="{% url 'article:redit_article' article.id %}"> 
                     <i class="far fa-edit"></i>    
                 </a>
                 <a name="delete" class="text-decoration-none ml-2" 

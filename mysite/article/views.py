@@ -108,4 +108,33 @@ def del_article(request):
     except:
         return HttpResponse("2")
 
+@login_required(login_url='/account/built-in-login/')
+@csrf_exempt
+def redit_article(request, article_id):
+    if request.method == "GET":
+        article_columns = request.user.article_column.all()
+        article = ArticlePost.objects.get(id=article_id)
+        article_form = ArticlePostForm(initial={"title":article.title, "body":article.body})
+        article_column = article.column
+        return render(request, 
+                      "article/column/redit_article.html", 
+                      {"article":article, 
+                       "article_columns":article_columns,
+                       "article_column":article_column,
+                       "article_form":article_form
+                      }
+                     )
+    else:
+        redit_article = ArticlePost.objects.get(id=article_id)
+        try:
+            redit_article.column = request.user.article_column.get(id=request.POST['column_id'])
+            redit_article.title = request.POST['title']
+            redit_article.body = request.POST['body']
+            redit_article.save()            
+            return HttpResponse("1")
+        except:
+            return HttpResponse("2")
+
+
+
 

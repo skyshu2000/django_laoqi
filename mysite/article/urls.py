@@ -24,4 +24,7 @@ urlpatterns = [
 
     # 删除文章
     path('del-article/', views.del_article, name="del_article"),
+
+    # 编辑文章
+    path('redit-article/<int:article_id>/', views.redit_article, name="redit_article"),
 ]
