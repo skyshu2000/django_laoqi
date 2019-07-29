@@ -86,6 +86,12 @@ class ArticlePostListView(ListView):
     model = ArticlePost
     context_object_name = "articles"
     template_name = "article/column/article_list.html"
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = ArticlePost.objects.filter(author=self.request.user)
+        return queryset
+
 
 
 from django.views.generic.detail import DetailView
