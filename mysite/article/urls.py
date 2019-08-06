@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, list_views
 
 app_name = "article"
 
@@ -16,7 +16,7 @@ urlpatterns = [
     # 创建文章
     path('article-post/', views.article_post, name="article_post"),
 
-    # 文章列表
+    # 文章列表，只能看到作者自己的文章
     path('article-list/', views.ArticlePostListView.as_view(), name="article_list"),
 
     # 文章详情
@@ -27,4 +27,7 @@ urlpatterns = [
 
     # 编辑文章
     path('redit-article/<int:article_id>/', views.redit_article, name="redit_article"),
+
+    # 文章列表，可以看到所有作者的文章
+    path('list-article-titles/', list_views.ArticleTitlesListView.as_view(), name="article_titles"),
 ]

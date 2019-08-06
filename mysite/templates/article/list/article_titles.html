@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} articles {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="text-center mt-2 mb-1">
+            <h1>阅读，丰富头脑，善化行为</h1>
+    </div>
+
+    {% for article in articles %} 
+    <div class="card mb-1">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="#">{{article.title}}</a>
+            </h5>
+            <h6 class="card-subtitle mb-2">作者:{{article.author.username}}</h6>
+        
+            <p class="card-text">{{article.body|slice:'70'| linebreaks}}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+{% include "paginator.html" %} 
+
+</div>
+{% endblock %}
