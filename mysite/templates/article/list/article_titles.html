@@ -13,7 +13,7 @@
     <div class="card mb-1">
         <div class="card-body">
             <h5 class="card-title">
-                <a href="#">{{article.title}}</a>
+                <a href="{{ article.get_url_path }}">{{article.title}}</a>
             </h5>
             <h6 class="card-subtitle mb-2">作者:{{article.author.username}}</h6>
         

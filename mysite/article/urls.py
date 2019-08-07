@@ -30,4 +30,7 @@ urlpatterns = [
 
     # 文章列表，可以看到所有作者的文章
     path('list-article-titles/', list_views.ArticleTitlesListView.as_view(), name="article_titles"),
+
+    # 查看文章内容
+    path('article-content/<int:pk>/<slug>/', list_views.ArticlePostDetailView.as_view(), name="article_content"),
 ]
