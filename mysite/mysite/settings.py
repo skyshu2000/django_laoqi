@@ -130,7 +130,7 @@ STATICFILES_DIRS = (
 )
 
 # Reset redirect url after login successfully.
-LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/account/built-in-login/'
 
 # Set EMAIL_BACKEND variable to display email in console
