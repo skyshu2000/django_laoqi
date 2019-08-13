@@ -15,7 +15,7 @@
             <h5 class="card-title">
                 <a href="{{ article.get_url_path }}">{{article.title}}</a>
             </h5>
-            <h6 class="card-subtitle mb-2">作者:{{article.author.username}}</h6>
+            <h6 class="card-subtitle mb-2">作者: <a href="{% url 'article:author_articles' article.author.username %}">{{article.author.username}}</a></h6>
         
             <p class="card-text">{{article.body|slice:'70'| linebreaks}}</p>
         </div>
