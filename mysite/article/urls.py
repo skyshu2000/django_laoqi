@@ -39,4 +39,6 @@ urlpatterns = [
          list_views.AuthorArticleTitlesListView.as_view(),
          name="author_articles"),
     
+    # 为文章点赞
+    path('like-article/', list_views.like_article, name="like_article"),
 ]

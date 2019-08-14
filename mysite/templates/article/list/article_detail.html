@@ -8,10 +8,13 @@
 {% endblock %}
 
 {% block content %} 
+{% with total_likes=article.users_like.count user_like=article.users_like.all %}
 <div>
     <header>
         <h2>{{ article.title }}</h2> 
-        <p>{{ article.author }}</p>
+        <p>{{ article.author }}
+            <span class="badge badge-pill badge-primary ml-2"><i class="far fa-thumbs-up mr-1"></i>{{ total_likes }}</span>
+        </p>
     </header>
     
     <hr />
@@ -19,6 +22,18 @@
     <div id='editormd-view'>
         <textarea>{{ article.body }}</textarea> 
     </div>
+
+    <div>
+        <p class="text-center">
+            <a onclick="like_article({{article.id}}, 'like')" href="#">
+                <i class="far fa-thumbs-up mr-1">like</i>
+            </a>
+            <a onclick="like_article({{article.id}}, 'unlike')" href="#">
+                <i class="far fa-thumbs-down mr-1">like</i>
+            </a>
+        </p>
+    </div>
+
 </div>
 <script src="{% static 'mdeditor/js/jquery.min.js' %}"></script>
   <script src="{% static 'mdeditor/js/editormd.min.js' %}"></script>
@@ -42,7 +57,25 @@ $(function(){
         sequenceDiagram : true, // 默认不解析
     });
 });
+
+function like_article(id, action){
+    $.ajax({
+        url: "{% url 'article:like_article' %}", 
+        type: "POST",
+        data: {"id":id, "action":action}, 
+        success: function(e){
+            if(e=="1"){ 
+                //layer.msg("感谢点赞"); 
+                window.location.reload();
+            }else{ 
+                //layer.msg("我会继续努力"); 
+                window.location.reload();
+            } 
+        },
+    });
+}
+
 </script>
 
-
+{% endwith %}
 {% endblock %}
