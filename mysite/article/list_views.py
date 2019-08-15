@@ -44,6 +44,13 @@ class ArticlePostDetailView(DetailView):
     context_object_name = "article"
     template_name = "article/list/article_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        obj.update_total_views()            
+        context["total_views"] = obj.total_views   
+        return context
+
 
 @csrf_exempt
 @require_POST

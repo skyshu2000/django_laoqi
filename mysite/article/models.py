@@ -28,6 +28,7 @@ class ArticlePost(models.Model):
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
     users_like = models.ManyToManyField(User, related_name="articles_like", blank=True)
+    total_views = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ("-created",)
@@ -45,4 +46,9 @@ class ArticlePost(models.Model):
     
     def get_url_path(self):
         return reverse("article:article_content", args=[self.id, self.slug])
+
+    def update_total_views(self):
+        self.total_views = self.total_views + 1
+        self.save()
+    
 
