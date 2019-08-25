@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'account',
     'article',
     'mdeditor',
+    'mptt',
 ]
 
 MIDDLEWARE = [

@@ -51,4 +51,33 @@ class ArticlePost(models.Model):
         self.total_views = self.total_views + 1
         self.save()
     
+from mptt.models import MPTTModel, TreeForeignKey
+class Comment(MPTTModel):
+    article = models.ForeignKey(ArticlePost, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
+    # 用于mptt树形结构
+    parent = TreeForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='children'
+    )
+
+    # 记录二级评论回复给谁
+    reply_to = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replyers"
+    )
+
+    class MPTTMeta:
+        order_insertion_by = ['created']
+    
+    def __str__(self):
+        return self.body[:20]

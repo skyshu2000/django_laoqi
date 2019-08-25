@@ -41,4 +41,13 @@ urlpatterns = [
     
     # 为文章点赞
     path('like-article/', list_views.like_article, name="like_article"),
+
+    # 处理一级回复
+    path('post-comment/<int:article_id>/', list_views.post_comment, name='post_comment'),
+
+    # 处理二级回复
+    path('post-comment/<int:article_id>/<int:parent_comment_id>/', list_views.post_comment, name='comment_reply'),
+
+    # 处理二级回复
+    path('post-comment-reply/', list_views.post_comment_reply, name="post_comment_reply"),
 ]
