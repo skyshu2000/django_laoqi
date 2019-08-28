@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load article_tags %}
 {% block title %}articles detail{% endblock %}
 
 {% block css %}
@@ -9,7 +10,9 @@
 
 {% block content %} 
 {% with total_likes=article.users_like.count user_like=article.users_like.all %}
-<div>
+<div class="container">
+<div class="row">
+<div class="col-md-9">
     <header>
         <h2>{{ article.title }}</h2> 
         <p>{{ article.author }}
@@ -74,6 +77,7 @@
 
     {% load mptt_tags %}
     <h4>共有{{ comments.count }}条评论</h4>
+    <div class="container">
     <div class="row">
         <!-- 遍历树形结构 -->
         {% recursetree comments %}
@@ -135,14 +139,19 @@
                     {% endif %}
 
 
-
+                
                 </div>
             {% endwith %}
         {% endrecursetree %}
     </div>
+    </div>
+</div>
 
-    
-
+<div class="col-md-3">
+    <p><h3>最新发布文章</h3></p>
+    {% latest_articles 4 %}
+</div>
+</div>
 </div>
 {% endwith %}
 
