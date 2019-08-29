@@ -150,6 +150,21 @@
 <div class="col-md-3">
     <p><h3>最新发布文章</h3></p>
     {% latest_articles 4 %}
+    <hr>
+
+    <p><h3>最多评论文章</h3></p>
+    <!--如果不使用下面的as方法，就无法遍历-->
+    {% most_commented_articles 4 as most_commented_articles %} 
+    <ul>
+        {% for most_commented_article in most_commented_articles %}
+        <li>
+            <a href="{{ most_commented_article.get_url_path }}">{{ most_commented_article.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>   
+    <hr>
+    
+
 </div>
 </div>
 </div>
