@@ -21,11 +21,13 @@
         </p>
     </header>
     
-    <hr />
+    <hr>
 
-    <div id='editormd-view'>
-        <textarea>{{ article.body }}</textarea> 
+    <div>     
+        {{ article.body | markdown }}       
     </div>
+    <hr>
+    
 
     <div>
         <p class="text-center">

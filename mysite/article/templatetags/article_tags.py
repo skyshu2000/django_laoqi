@@ -1,3 +1,6 @@
+from django.utils.safestring import mark_safe
+import markdown
+
 from django import template
 
 register = template.Library()
@@ -24,3 +27,7 @@ def most_commented_articles(n=3):
     # 使用 annotate() 函数为 QuerySet 生产特定指标的聚合
 
     return ArticlePost.objects.annotate(total_comments=Count('comments')).order_by('-total_comments')[:n]
+
+@register.filter(name='markdown')
+def markdown_filter(text):
+    return mark_safe(markdown.markdown(text)) 
