@@ -26,6 +26,18 @@
                 </select> 
             </div>
         </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-1 text-right"><span>标签：</span></div>
+            <div class="col-md-11 text-left">
+                {% for tag in article.tags.all %}
+                {{ tag }}
+                {% if not forloop.last %}
+                    ,
+                {% endif %}
+                {% endfor %}  
+            </div>                      
+        </div>
         
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-1 text-right"><span>内容:</span></div>

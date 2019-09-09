@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse
 from slugify import slugify
 from mdeditor.fields import MDTextField
+from taggit.managers import TaggableManager
 
 class ArticleColumn(models.Model):
     user = models.ForeignKey(
@@ -29,6 +30,8 @@ class ArticlePost(models.Model):
     updated = models.DateTimeField(auto_now=True)
     users_like = models.ManyToManyField(User, related_name="articles_like", blank=True)
     total_views = models.PositiveIntegerField(default=0)
+    
+    tags = TaggableManager()
 
     class Meta:
         ordering = ("-created",)

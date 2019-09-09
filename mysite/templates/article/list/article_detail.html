@@ -19,6 +19,17 @@
             <span class="badge badge-pill badge-primary ml-2"><i class="far fa-thumbs-up mr-1"></i>{{ total_likes }}</span>
             <span class="badge badge-pill badge-primary ml-2"><i class="far fa-eye mr-1"></i>{{ total_views }}</span>
         </p>
+        
+        <p class="tags">
+            <i class="fas fa-tags mr-1"></i>
+            {% for tag in article.tags.all %}
+            <a href="#">{{ tag.name }}</a>
+            {% if not forloop.last %}
+                ,
+            {% endif %}
+            {% endfor %}  
+        </p>
+
     </header>
     
     <hr>

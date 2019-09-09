@@ -22,6 +22,11 @@
                 </select> 
             </div>
         </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-1 text-right"><span>标签:</span></div>
+            <div class="col-md-11 text-left">{{article_post_form.tags}}</div> 
+        </div>
         
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-1 text-right"><span>内容:</span></div>
@@ -47,11 +52,12 @@
 function publish_article(){
     var title = $("#id_title").val();
     var column_id = $("#which_column").val(); 
-    var body = $("#id_body").val();    
+    var body = $("#id_body").val();   
+    var tags = $("#id_tags").val();
     $.ajax({
         url: "{% url 'article:article_post' %}",
         type: "POST",
-        data: {"title":title, "body":body, "column_id":column_id}, 
+        data: {"title":title, "body":body, "column_id":column_id, "tags": tags}, 
         success: function(e){
             if(e=="1"){ 
                 alert("successful"); 

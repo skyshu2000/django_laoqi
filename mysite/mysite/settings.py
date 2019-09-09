@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'article',
     'mdeditor',
     'mptt',
+    'taggit',
 ]
 
 MIDDLEWARE = [

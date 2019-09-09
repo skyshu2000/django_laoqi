@@ -60,14 +60,17 @@ def delete_article_column(request):
 @csrf_exempt
 def article_post(request):
     if request.method == "POST":
-        article_post_form = ArticlePostForm(data=request.POST)
+        article_post_form = ArticlePostForm(request.POST)
         if article_post_form.is_valid():
-            cd = article_post_form.cleaned_data
+            #cd = article_post_form.cleaned_data
             try:
                 new_article = article_post_form.save(commit=False)
                 new_article.author = request.user
                 new_article.column = request.user.article_column.get(id=request.POST['column_id'])
+                #new_article.tags = request.POST("tags")
                 new_article.save()
+                # Withour this next line, the tags won't be saved
+                article_post_form.save_m2m()
                 return HttpResponse("1")
             except:
                 return HttpResponse("2")
@@ -86,7 +89,7 @@ class ArticlePostListView(ListView):
     model = ArticlePost
     context_object_name = "articles"
     template_name = "article/column/article_list.html"
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = ArticlePost.objects.filter(author=self.request.user)
@@ -120,14 +123,16 @@ def redit_article(request, article_id):
     if request.method == "GET":
         article_columns = request.user.article_column.all()
         article = ArticlePost.objects.get(id=article_id)
-        article_form = ArticlePostForm(initial={"title":article.title, "body":article.body})
+        article_form = ArticlePostForm(initial={"title":article.title, "body":article.body, "tags":article.tags})
         article_column = article.column
+        article_tags = article.tags
         return render(request, 
                       "article/column/redit_article.html", 
                       {"article":article, 
                        "article_columns":article_columns,
                        "article_column":article_column,
-                       "article_form":article_form
+                       "article_form":article_form,
+                       "article_tags":article_tags,
                       }
                      )
     else:
@@ -136,7 +141,8 @@ def redit_article(request, article_id):
             redit_article.column = request.user.article_column.get(id=request.POST['column_id'])
             redit_article.title = request.POST['title']
             redit_article.body = request.POST['body']
-            redit_article.save()            
+            redit_article.save()
+               
             return HttpResponse("1")
         except:
             return HttpResponse("2")
